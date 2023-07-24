@@ -1,0 +1,11 @@
+Django==4.2.2
+djangorestframework==3.14.0
+django-modeltranslation==0.18.10
+django-jazzmin==2.6.0
+django-import-export==3.2.0
+
+environs==9.5.0
+geopy==2.3.0
+
+Pillow==9.5.0
+psycopg2-binary==2.9.6 # psycopg2-binary only for development. Consider using psycopg2 on production.
