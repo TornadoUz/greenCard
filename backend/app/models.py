@@ -18,6 +18,10 @@ class MaritalStatusChoices(models.TextChoices):
 
 
 class BotUser(models.Model):
+    full_name = models.CharField(
+        max_length=255,
+        verbose_name="Full name"
+    )
     telegram_id = models.CharField(
         max_length=30,
         unique=True,
@@ -108,3 +112,101 @@ class Application(models.Model):
         )
         verbose_name = "Application"
         verbose_name_plural = "Applications"
+
+
+class Spouse(models.Model):
+    application = models.OneToOneField(Application, on_delete=models.CASCADE)
+    phone_number = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        verbose_name="Phone Number",
+    )
+    first_name = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="First name"
+    )
+    last_name = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="First name"
+    )
+    gender = models.CharField(
+        max_length=6,
+        null=True,
+        blank=True,
+        choices=GenderChoices.choices,
+        verbose_name="Gender",
+    )
+    birth_date = models.DateField(null=True, blank=True, verbose_name="Birth date")
+    birth_country = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Birth country"
+    )
+    birth_city = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Birth city"
+    )
+    nationality = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Nationality"
+    )
+    passport_number = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Passport number"
+    )
+    passport_exp_date = models.DateField(
+        null=True, blank=True, verbose_name="Passport expiration date"
+    )
+    email = models.EmailField(
+        max_length=255, null=True, blank=True, verbose_name="Email"
+    )
+
+    added_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        db_table = "spouses"
+        verbose_name = "Spouse"
+        verbose_name_plural = "Spouses"
+
+
+class Child(models.Model):
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    phone_number = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        verbose_name="Phone Number",
+    )
+    first_name = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="First name"
+    )
+    last_name = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="First name"
+    )
+    gender = models.CharField(
+        max_length=6,
+        null=True,
+        blank=True,
+        choices=GenderChoices.choices,
+        verbose_name="Gender",
+    )
+    birth_date = models.DateField(null=True, blank=True, verbose_name="Birth date")
+    birth_country = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Birth country"
+    )
+    birth_city = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Birth city"
+    )
+    nationality = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Nationality"
+    )
+    passport_number = models.CharField(
+        max_length=150, null=True, blank=True, verbose_name="Passport number"
+    )
+    passport_exp_date = models.DateField(
+        null=True, blank=True, verbose_name="Passport expiration date"
+    )
+    email = models.EmailField(
+        max_length=255, null=True, blank=True, verbose_name="Email"
+    )
+
+    class Meta:
+        db_table = "childs"
+        verbose_name = "Child"
+        verbose_name_plural = "Childs"

@@ -10,7 +10,8 @@ devup:
 		-e TZ='Asia/Tashkent'		                \
 		-p 5432:5432                                \
 		-v green_card_data:/var/lib/postgresql/data \
-		postgres:15.1
+		postgres:15.1                               \
+		postgres -c log_statement=all
 
 devdown:
 	docker rm -f green_card_postgres

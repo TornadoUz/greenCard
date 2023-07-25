@@ -1,13 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Green Card Form Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 400px;
+            background-color: #343541;
+            /* padding: 20px; */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            text-align: center;
+            /* Center the text content within the form container */
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: center;
+            /* Align the labels to the left */
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- Telegram web app script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
+
 <body>
-    <h1>Hello Tornado</h1>
+    <div class="form-container">
+        <form id="mainForm">
+            <label for="phone_number">Phone Number:</label>
+            <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{12}" required>
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="birth_date">Birth Date:</label>
+            <input type="date" id="birth_date" name="birth_date" required>
+
+            <label for="birth_country">Birth Country:</label>
+            <input type="text" id="birth_country" name="birth_country" required>
+
+            <label for="birth_city">Birth City:</label>
+            <input type="text" id="birth_city" name="birth_city" required>
+
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality" required>
+
+            <label for="passport_number">Passport Number:</label>
+            <input type="text" id="passport_number" name="passport_number" required>
+
+            <label for="passport_exp_date">Passport Expiry Date:</label>
+            <input type="date" id="passport_exp_date" name="passport_exp_date" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                required>
+
+            <label for="marital_status">Marital Status:</label>
+            <select id="marital_status" name="marital_status" required>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+            </select>
+
+            <div id="spouseForm" style="display: none;">
+                <h2>Spouse Form</h2>
+                <!-- Spouse form fields -->
+                <label for="spouse_phone_number">Phone Number:</label>
+                <input type="tel" id="spouse_phone_number" name="spouse_phone_number" pattern="[0-9]{12}" required>
+
+                <label for="spouse_first_name">First Name:</label>
+                <input type="text" id="spouse_first_name" name="spouse_first_name" required>
+
+                <label for="spouse_last_name">Last Name:</label>
+                <input type="text" id="spouse_last_name" name="spouse_last_name" required>
+
+                <label for="spouse_gender">Gender:</label>
+                <select id="spouse_gender" name="spouse_gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="spouse_birth_date">Birth Date:</label>
+                <input type="date" id="spouse_birth_date" name="spouse_birth_date" required>
+
+                <label for="spouse_birth_country">Birth Country:</label>
+                <input type="text" id="spouse_birth_country" name="spouse_birth_country" required>
+
+                <label for="spouse_birth_city">Birth City:</label>
+                <input type="text" id="spouse_birth_city" name="spouse_birth_city" required>
+
+                <label for="spouse_nationality">Nationality:</label>
+                <input type="text" id="spouse_nationality" name="spouse_nationality" required>
+
+                <label for="spouse_passport_number">Passport Number:</label>
+                <input type="text" id="spouse_passport_number" name="spouse_passport_number" required>
+
+                <label for="spouse_passport_exp_date">Passport Expiry Date:</label>
+                <input type="date" id="spouse_passport_exp_date" name="spouse_passport_exp_date" required>
+
+                <label for="spouse_email">Email:</label>
+                <input type="email" id="spouse_email" name="spouse_email"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+            </div>
+
+            <label for="children_count">Number of Children:</label>
+            <input type="number" id="children_count" name="children_count" required>
+
+            <div id="childForms" style="display: none;">
+                <!-- Child forms will be added dynamically here -->
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('marital_status').addEventListener('change', function () {
+            const spouseForm = document.getElementById('spouseForm');
+            if (this.value === 'married') {
+                spouseForm.style.display = 'block';
+            } else {
+                spouseForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('mainForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const childrenCount = parseInt(document.getElementById('children_count').value);
+            const childFormsContainer = document.getElementById('childForms');
+
+            // Clear any previous child forms
+            childFormsContainer.innerHTML = '';
+
+            // Add child forms based on the children_count
+            if (childrenCount > 0) {
+                for (let i = 0; i < childrenCount; i++) {
+                    const childForm = createChildForm(i + 1);
+                    childFormsContainer.appendChild(childForm);
+                }
+                childFormsContainer.style.display = 'block';
+            } else {
+                childFormsContainer.style.display = 'none';
+            }
+
+            // Submit the main form with all the data
+            // You can implement your submission logic here
+            console.log('Form submitted with all data.');
+        });
+
+        // Function to create a single child form
+        function createChildForm(childNumber) {
+            const childFormDiv = document.createElement('div');
+            childFormDiv.classList.add('child-form');
+            childFormDiv.innerHTML = `<h2>Child Form ${childNumber}</h2>
+            <!-- Child form fields -->
+            <label for="child_first_name_${childNumber}">First Name:</label>
+            <input type="text" id="child_first_name_${childNumber}" name="child_first_name_${childNumber}" required>
+    
+            <label for="child_last_name_${childNumber}">Last Name:</label>
+            <input type="text" id="child_last_name_${childNumber}" name="child_last_name_${childNumber}" required>
+    
+            <label for="child_gender_${childNumber}">Gender:</label>
+            <select id="child_gender_${childNumber}" name="child_gender_${childNumber}" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+    
+            <label for="child_birth_date_${childNumber}">Birth Date:</label>
+            <input type="date" id="child_birth_date_${childNumber}" name="child_birth_date_${childNumber}" required>
+    
+            <label for="child_birth_country_${childNumber}">Birth Country:</label>
+            <input type="text" id="child_birth_country_${childNumber}" name="child_birth_country_${childNumber}" required>
+    
+            <label for="child_birth_city_${childNumber}">Birth City:</label>
+            <input type="text" id="child_birth_city_${childNumber}" name="child_birth_city_${childNumber}" required>
+    
+            <label for="child_nationality_${childNumber}">Nationality:</label>
+            <input type="text" id="child_nationality_${childNumber}" name="child_nationality_${childNumber}" required>
+    
+            <label for="child_passport_number_${childNumber}">Passport Number:</label>
+            <input type="text" id="child_passport_number_${childNumber}" name="child_passport_number_${childNumber}" required>
+    
+            <label for="child_passport_exp_date_${childNumber}">Passport Expiry Date:</label>
+            <input type="date" id="child_passport_exp_date_${childNumber}" name="child_passport_exp_date_${childNumber}" required>
+    
+            <label for="child_email_${childNumber}">Email:</label>
+            <input type="email" id="child_email_${childNumber}" name="child_email_${childNumber}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>`;
+
+            return childFormDiv;
+        }
+
+
+        // Form upload post request
+        document.getElementById('mainForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get the main form data
+            const formData = new FormData(this);
+
+            // Convert the form data to a plain object
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            // Check if marital status is "married" and add spouse form data if applicable
+            if (formObject.marital_status === 'married') {
+                formObject.spouse = {
+                    phone_number: formObject.spouse_phone_number,
+                    first_name: formObject.spouse_first_name,
+                    last_name: formObject.spouse_last_name,
+                    gender: formObject.spouse_gender,
+                    birth_date: formObject.spouse_birth_date,
+                    birth_country: formObject.spouse_birth_country,
+                    birth_city: formObject.spouse_birth_city,
+                    nationality: formObject.spouse_nationality,
+                    passport_number: formObject.spouse_passport_number,
+                    passport_exp_date: formObject.spouse_passport_exp_date,
+                    email: formObject.spouse_email
+                };
+                delete formObject.spouse_phone_number;
+                delete formObject.spouse_first_name;
+                delete formObject.spouse_last_name;
+                delete formObject.spouse_gender;
+                delete formObject.spouse_birth_date;
+                delete formObject.spouse_birth_country;
+                delete formObject.spouse_birth_city;
+                delete formObject.spouse_nationality;
+                delete formObject.spouse_passport_number;
+                delete formObject.spouse_passport_exp_date;
+                delete formObject.spouse_email;
+            }
+
+            // Check if children_count is greater than 0 and add child forms data if applicable
+            if (parseInt(formObject.children_count) > 0) {
+                formObject.children = [];
+                for (let i = 1; i <= parseInt(formObject.children_count); i++) {
+                    const child = {
+                        first_name: formObject[`child_first_name_${i}`],
+                        last_name: formObject[`child_last_name_${i}`],
+                        gender: formObject[`child_gender_${i}`],
+                        birth_date: formObject[`child_birth_date_${i}`],
+                        birth_country: formObject[`child_birth_country_${i}`],
+                        birth_city: formObject[`child_birth_city_${i}`],
+                        nationality: formObject[`child_nationality_${i}`],
+                        passport_number: formObject[`child_passport_number_${i}`],
+                        passport_exp_date: formObject[`child_passport_exp_date_${i}`],
+                        email: formObject[`child_email_${i}`]
+                    };
+                    formObject.children.push(child);
+                    delete formObject[`child_first_name_${i}`];
+                    delete formObject[`child_last_name_${i}`];
+                    delete formObject[`child_gender_${i}`];
+                    delete formObject[`child_birth_date_${i}`];
+                    delete formObject[`child_birth_country_${i}`];
+                    delete formObject[`child_birth_city_${i}`];
+                    delete formObject[`child_nationality_${i}`];
+                    delete formObject[`child_passport_number_${i}`];
+                    delete formObject[`child_passport_exp_date_${i}`];
+                    delete formObject[`child_email_${i}`];
+                }
+            }
+
+            // Convert the form object to JSON
+            const jsonData = JSON.stringify(formObject);
+
+            // Make the AJAX POST request using Fetch API
+            fetch('https://greenCard.uz/apply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                    // Handle the response from the server here
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle any errors that occurred during the request here
+                });
+        });
+
+    </script>
 </body>
+
 </html>
