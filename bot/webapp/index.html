@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Telegram web app script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <title>Green Card Form Upload</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,13 +19,11 @@
             justify-content: center;
             /* align-items: center; */
             height: 100%;
-            background-color: #f0f0f0;
         }
 
         .form-container {
             width: 90%;
             max-width: 400px;
-            background-color: #343541;
             /* padding: 20px; */
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -62,8 +64,12 @@
         }
     </style>
 
-    <!-- Telegram web app script -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        var bodyElement = document.body;
+        bodyElement.style.backgroundColor = window.Telegram.WebApp.bg_color
+        bodyElement.style.color = window.Telegram.WebApp.text_color
+    </script>
+
 </head>
 
 <body>
